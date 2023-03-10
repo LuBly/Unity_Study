@@ -24,7 +24,8 @@ public class TileSpawner : MonoBehaviour
         GameObject clone = Instantiate(tilePrefabs);
         // 생성된 타일의 부모 오브젝트를 "TileSpawner"로 설정
         clone.transform.SetParent(transform);
-
+        // 타일이 재생성될 때 TileSpawner가 필요하기 때문에 Setup()메소드 매개변수로 넘겨준다.
+        clone.GetComponent<Tile>().Setup(this);
         SpawnTile(clone.transform);
     }
 
