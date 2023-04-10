@@ -334,6 +334,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pinSpawner: {fileID: 2126319772}
   throwablePinCount: 2
+  stuckPinCount: 5
 --- !u!4 &1840770144
 Transform:
   m_ObjectHideFlags: 0
@@ -378,6 +379,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pinPrefab: {fileID: 7927009901443768649, guid: d5b66944a7daf4648ac8623b9d30f7c4, type: 3}
+  targetTransform: {fileID: 702960398}
+  targetPosition: {x: 0, y: 2, z: 0}
+  targetRadius: 0.8
+  pinLength: 1.5
 --- !u!4 &2126319773
 Transform:
   m_ObjectHideFlags: 0

@@ -6,6 +6,8 @@ public class StageController : MonoBehaviour
     private PinSpawner pinSpawner; // Pin 생성을 위한 PinSpawner 컴포넌트
     [SerializeField]
     private int throwablePinCount; // 현재 스테이지를 클리어하기 위해 던져야 하는 핀 개수
+    [SerializeField]
+    private int stuckPinCount;     // 현재 스테이지에서 미리 꼽혀있는 pin의 개수
 
     // 게임 화면 하단에 배치되는 던져야하는 핀들의 첫 번째 핀 위치
     private Vector3 firstTPinPosition = Vector3.down * 2;
@@ -18,6 +20,13 @@ public class StageController : MonoBehaviour
         for(int i = 0; i < throwablePinCount; i++)
         {
             pinSpawner.SpawnThrowablePin(firstTPinPosition + Vector3.down * TPinDistance * i);
+        }
+
+        for(int i =0;i<stuckPinCount; i++)
+        {
+            //과녁에 배치되는 핀의 개수에 따라 일정한 간격으로 배치될 때 배치 각도
+            float angle = (360 / stuckPinCount) * i;
+            pinSpawner.SpawnStuckPin(angle);
         }
     }
 }
