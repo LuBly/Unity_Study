@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PinSpawner : MonoBehaviour
@@ -15,10 +16,41 @@ public class PinSpawner : MonoBehaviour
     private float targetRadius = 0.8f;                  // 과녁의 반지름
     [SerializeField]
     private float pinLength = 1.5f;                     // 핀 막대 길이
+
+    [Header("Throwable Pin")]
+    [SerializeField]
+    private float bottomAngle = 270;                    // 게임 도중 마우스 클릭으로 배치되는 핀의 각도
+    private List<Pin> throwablePins;                    // 하단에 생성되는 던져야 할 핀 오브젝트 리스트
+
+    // Awake가 아닌 Setup을 사용하는 이유
+    // Awake의 경우 실행 순서가 랜덤인 것에 반해 Setup의 경우 필요할 때 호출하여 사용할 수 있기 때문
+    // ThrowablePins 리스트의 메모리 할당이 먼저 호출 되고, throwablePins 리스트를 사용하도록 하기 위해서
+    public void Setup()
+    {
+        throwablePins = new List<Pin>();
+    }
+
+    private void Update()
+    {
+        // 게임 진행 도중 플레이어가 마우스 왼쪽 클릭으로 핀 생성
+        if(Input.GetMouseButtonDown(0)&&throwablePins.Count>0) 
+        {
+            // throwablePins 리스트에 저장된 첫 번째 핀을 과녁에 배치
+            SetInPinStuckToTarget(throwablePins[0].transform, bottomAngle);
+            // 방금 과녁에 배치한 첫 번째 핀 요소를 리스트에서 삭제
+            throwablePins.RemoveAt(0);
+        }
+    }
     public void SpawnThrowablePin(Vector3 position)
     {
-        //핀 오브젝트 생성
-        Instantiate(pinPrefab, position, Quaternion.identity);
+        // 핀 오브젝트 생성
+        GameObject clone = Instantiate(pinPrefab, position, Quaternion.identity);
+
+        // "Pin" 컴포넌트 정보를 얻어와 Setup() 메소드 호출
+        Pin pin= clone.GetComponent<Pin>();
+
+        // 방금 생성된 핀 오브젝트의 "Pin" 컴포넌트를 리스트에 추가
+        throwablePins.Add(pin);
     }
 
     public void SpawnStuckPin(float angle)

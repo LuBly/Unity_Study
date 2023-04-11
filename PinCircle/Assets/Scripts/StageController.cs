@@ -16,10 +16,13 @@ public class StageController : MonoBehaviour
 
     private void Awake()
     {
+        // PinSpawner의 Setup() 메소드 호출 _ List 생성
+        pinSpawner.Setup();
+
         // 게임 하단에 배치되는 던져야 하는 핀 오브젝트 생성
         for(int i = 0; i < throwablePinCount; i++)
         {
-            pinSpawner.SpawnThrowablePin(firstTPinPosition + Vector3.down * TPinDistance * i);
+            pinSpawner.SpawnThrowablePin(firstTPinPosition + Vector3.down * TPinDistance * i);// List에 값 추가
         }
 
         for(int i =0;i<stuckPinCount; i++)
