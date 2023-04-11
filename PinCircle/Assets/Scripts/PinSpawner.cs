@@ -5,7 +5,9 @@ public class PinSpawner : MonoBehaviour
 {
     [Header("Commons")]
     [SerializeField]
-    private GameObject pinPrefab; // 사용할 핀 프리팹
+    private StageController stageController;            // StageController 컴포넌트 정보
+    [SerializeField]
+    private GameObject pinPrefab;                       // 사용할 핀 프리팹
 
     [Header("Stuck Pin")]
     [SerializeField]
@@ -39,6 +41,12 @@ public class PinSpawner : MonoBehaviour
             SetInPinStuckToTarget(throwablePins[0].transform, bottomAngle);
             // 방금 과녁에 배치한 첫 번째 핀 요소를 리스트에서 삭제
             throwablePins.RemoveAt(0);
+
+            // 과녁에 배치되지 않은 throwablePins 리스트의 모든 핀 위치 이동
+            for(int i=0;i<throwablePins.Count;i++)
+            {
+                throwablePins[i].MoveOneStep(stageController.TPinDistance);
+            }
         }
     }
     public void SpawnThrowablePin(Vector3 position)
