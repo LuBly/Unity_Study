@@ -621,6 +621,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageController: {fileID: 1840770143}
   pinPrefab: {fileID: 7927009901443768649, guid: d5b66944a7daf4648ac8623b9d30f7c4, type: 3}
+  textPinIndexPrefab: {fileID: 1526809130806357793, guid: dc5006c27b0dbf441bf9475f89e6317b, type: 3}
+  textParent: {fileID: 512393226}
   targetTransform: {fileID: 702960398}
   targetPosition: {x: 0, y: 2, z: 0}
   targetRadius: 0.8
