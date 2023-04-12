@@ -8,6 +8,10 @@ public class PinSpawner : MonoBehaviour
     private StageController stageController;            // StageController 컴포넌트 정보
     [SerializeField]
     private GameObject pinPrefab;                       // 사용할 핀 프리팹
+    [SerializeField]
+    private GameObject textPinIndexPrefab;              // 핀에 숫자를 표시하는 Text UI
+    [SerializeField]
+    private Transform textParent;                       // 핀 Text가 배치되는 Panel Transform
 
     [Header("Stuck Pin")]
     [SerializeField]
@@ -49,7 +53,7 @@ public class PinSpawner : MonoBehaviour
             }
         }
     }
-    public void SpawnThrowablePin(Vector3 position)
+    public void SpawnThrowablePin(Vector3 position, int index)
     {
         // 핀 오브젝트 생성
         GameObject clone = Instantiate(pinPrefab, position, Quaternion.identity);
@@ -59,15 +63,21 @@ public class PinSpawner : MonoBehaviour
 
         // 방금 생성된 핀 오브젝트의 "Pin" 컴포넌트를 리스트에 추가
         throwablePins.Add(pin);
+
+        // 핀 오브젝트에 표시되는 Text UI 생성
+        SpawnTextUI(clone.transform, index);
     }
 
-    public void SpawnStuckPin(float angle)
+    public void SpawnStuckPin(float angle, int index)
     {
         // 핀 오브젝트 생성
         GameObject clone = Instantiate(pinPrefab);
 
         // 핀이 과녁에 배치될 수 있도록 설정
         SetInPinStuckToTarget(clone.transform, angle);
+
+        // 핀 오브젝트에 표시되는 Text UI 생성
+        SpawnTextUI(clone.transform, index);
     }
 
     private void SetInPinStuckToTarget(Transform pin,float angle)
@@ -80,5 +90,19 @@ public class PinSpawner : MonoBehaviour
         pin.SetParent(targetTransform);
         // 핀이 과녁에 배치되었을 때 설정
         pin.GetComponent<Pin>().SetInPinStuckToTarget();
+    }
+
+    private void SpawnTextUI(Transform target, int index)
+    {
+        // 숫자를 나타내는 Text UI 생성
+        GameObject textClone = Instantiate(textPinIndexPrefab);
+        // Text UI의 부모를 textParent로 설정
+        textClone.transform.SetParent(textParent);
+        // 계층 설정으로 바뀐 크기를 다시 (1,1,1)로 설정
+        textClone.transform.localScale= Vector3.one;
+        // UI가 쫓아다닐 대상 설정
+        textClone.GetComponent<WorldToScreenPosition>().Setup(target);
+        // UI가 표시되는 텍스트 내용
+        textClone.GetComponent<TMPro.TextMeshProUGUI>().text = index.ToString();
     }
 }
