@@ -5,6 +5,10 @@ public class StageController : MonoBehaviour
     [SerializeField]
     private PinSpawner pinSpawner; // Pin 생성을 위한 PinSpawner 컴포넌트
     [SerializeField]
+    private Camera mainCamera;     // 배경 색상 변경을 위한 Camera 컴포넌트
+    [SerializeField]
+    private Rotator rotatorTarget; // 핀이 배치되는 타겟 오브젝트의 회전체
+    [SerializeField]
     private int throwablePinCount; // 현재 스테이지를 클리어하기 위해 던져야 하는 핀 개수
     [SerializeField]
     private int stuckPinCount;     // 현재 스테이지에서 미리 꼽혀있는 pin의 개수
@@ -13,6 +17,12 @@ public class StageController : MonoBehaviour
     private Vector3 firstTPinPosition = Vector3.down * 2;
     // 던져야 하는 핀들 사이의 배치 거리
     public float TPinDistance { private set; get; } = 1; //<<readOnly property, 외부에서 읽기만 가능하게
+    // 게임오버 / 게임 클리어 되었을 때 배경 색상
+    private Color failBackgroundColor = new Color(0.4f, 0.1f, 0.1f);
+
+    // 게임 제어를 위한 변수
+    public bool isGameOver { set; get; } = false;
+
 
     private void Awake()
     {
@@ -31,5 +41,16 @@ public class StageController : MonoBehaviour
             float angle = (360 / stuckPinCount) * i;
             pinSpawner.SpawnStuckPin(angle,throwablePinCount+1+i);
         }
+    }
+
+    public void GameOver()
+    {
+        isGameOver = true;
+
+        // 배경 색상 변경
+        mainCamera.backgroundColor = failBackgroundColor;
+
+        // 과녁 오브젝트 회전 중지
+        rotatorTarget.Stop();
     }
 }

@@ -4,10 +4,16 @@ using UnityEngine;
 public class Pin : MonoBehaviour
 {
     [SerializeField]
-    private GameObject square; // 핀의 막대 부분
+    private GameObject square;               // 핀의 막대 부분
     [SerializeField]
-    private float moveTime = 0.2f; // 게임 하단에서 핀 1회 이동 시간.
+    private float moveTime = 0.2f;           // 게임 하단에서 핀 1회 이동 시간.
 
+    private StageController stageController; // GameOver()실행을 위한 StageController 컴포넌트
+
+    public void Setup(StageController stageController)
+    {
+        this.stageController = stageController;
+    }
     public void SetInPinStuckToTarget()
     {
         // Throwable Pin으로 사용되던 핀의 경우 움직이고 있을 수도 있기 때문에 이동 중지
@@ -36,6 +42,14 @@ public class Pin : MonoBehaviour
             transform.position = Vector3.Lerp(start, end, percent);
 
             yield return null;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag.Equals("Pin"))
+        {
+            stageController.GameOver();
         }
     }
 }

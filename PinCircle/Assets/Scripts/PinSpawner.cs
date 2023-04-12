@@ -38,6 +38,9 @@ public class PinSpawner : MonoBehaviour
 
     private void Update()
     {
+        // 게임오버(클리어 or 실패)이면 실행X
+        if (stageController.isGameOver == true) return;
+
         // 게임 진행 도중 플레이어가 마우스 왼쪽 클릭으로 핀 생성
         if(Input.GetMouseButtonDown(0)&&throwablePins.Count>0) 
         {
@@ -60,7 +63,7 @@ public class PinSpawner : MonoBehaviour
 
         // "Pin" 컴포넌트 정보를 얻어와 Setup() 메소드 호출
         Pin pin= clone.GetComponent<Pin>();
-
+        pin.Setup(stageController);
         // 방금 생성된 핀 오브젝트의 "Pin" 컴포넌트를 리스트에 추가
         throwablePins.Add(pin);
 
@@ -72,6 +75,10 @@ public class PinSpawner : MonoBehaviour
     {
         // 핀 오브젝트 생성
         GameObject clone = Instantiate(pinPrefab);
+
+        // "Pin" 컴포넌트 정보를 얻어와 Setup() 메소드 호출
+        Pin pin = clone.GetComponent<Pin>();
+        pin.Setup(stageController);
 
         // 핀이 과녁에 배치될 수 있도록 설정
         SetInPinStuckToTarget(clone.transform, angle);
