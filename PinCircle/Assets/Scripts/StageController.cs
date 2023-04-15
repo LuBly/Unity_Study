@@ -12,6 +12,8 @@ public class StageController : MonoBehaviour
     [SerializeField]
     private Rotator rotatorIndexPanel;  // 핀 인덱스 Text가 배치된 Panel 오브젝트 회전체
     [SerializeField]
+    private MainMenuUI mainMenuUI;      // 메인 메뉴 이동을 위한 MainMenuUI 컴포넌트
+    [SerializeField]
     private int throwablePinCount;      // 현재 스테이지를 클리어하기 위해 던져야 하는 핀 개수
     [SerializeField]
     private int stuckPinCount;          // 현재 스테이지에서 미리 꼽혀있는 pin의 개수
@@ -55,6 +57,9 @@ public class StageController : MonoBehaviour
 
         // 과녁 오브젝트 회전 중지
         rotatorTarget.Stop();
+
+        // 0.5초 대기 후 스테이지 종료 이벤트 처리
+        StartCoroutine("StageExit", 0.5f);
     }
 
     public void DecreaseThrowablePin()
@@ -88,5 +93,15 @@ public class StageController : MonoBehaviour
         rotatorTarget.RotateFast();
         // Text가 배치되어 있는 패널을 빠르게 회전
         rotatorIndexPanel.RotateFast();
+
+        // 1초 대기 후 스테이지 종료 후 이벤트 처리
+        StartCoroutine("StageExit", 1);
+    }
+
+    private IEnumerator StageExit(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+
+        mainMenuUI.StageExit();
     }
 }

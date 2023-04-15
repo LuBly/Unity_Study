@@ -1,13 +1,15 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenuUI : MonoBehaviour
 {
     [SerializeField]
     private StageController stageController;
     [SerializeField]
-    private RectTransformMovers menuPanel; // 버튼을 눌렀을 때 명령을 수행해줄 RectTransformMovers 인스턴스
+    private RectTransformMovers menuPanel; 
 
     private Vector3 inactivePosition = Vector3.left * 1080;
+    private Vector3 activePosition = Vector3.zero;
     public void ButtonClickEventStart()
     {
         menuPanel.MoveTo(AfterStartEvent, inactivePosition);
@@ -33,5 +35,15 @@ public class MainMenuUI : MonoBehaviour
         #else
         Application.Quit();
         #endif
+    }
+
+    public void StageExit()
+    {
+        menuPanel.MoveTo(AfterStageExitEvent, activePosition);
+    }
+
+    private void AfterStageExitEvent()
+    {
+        SceneManager.LoadScene(0);
     }
 }

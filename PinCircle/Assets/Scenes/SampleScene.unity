@@ -1568,6 +1568,7 @@ MonoBehaviour:
   mainCamera: {fileID: 519420031}
   rotatorTarget: {fileID: 702960399}
   rotatorIndexPanel: {fileID: 512393229}
+  mainMenuUI: {fileID: 1951619817}
   throwablePinCount: 2
   stuckPinCount: 2
 --- !u!4 &1840770144
