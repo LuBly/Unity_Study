@@ -234,6 +234,7 @@ GameObject:
   - component: {fileID: 512393226}
   - component: {fileID: 512393228}
   - component: {fileID: 512393227}
+  - component: {fileID: 512393229}
   m_Layer: 5
   m_Name: PanelNumbering
   m_TagString: Untagged
@@ -298,6 +299,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 512393225}
   m_CullTransparentMesh: 1
+--- !u!114 &512393229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 512393225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dc4b04f364d30e43aaec0169c3857b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateSpeed: 0
+  maxRotateSpeed: 500
+  rotateAngle: {x: 0, y: 0, z: 1}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -477,6 +493,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotateSpeed: 50
+  maxRotateSpeed: 500
   rotateAngle: {x: 0, y: 0, z: 1}
 --- !u!1 &1468183894
 GameObject:
@@ -576,8 +593,9 @@ MonoBehaviour:
   pinSpawner: {fileID: 2126319772}
   mainCamera: {fileID: 519420031}
   rotatorTarget: {fileID: 702960399}
-  throwablePinCount: 5
-  stuckPinCount: 5
+  rotatorIndexPanel: {fileID: 512393229}
+  throwablePinCount: 2
+  stuckPinCount: 2
 --- !u!4 &1840770144
 Transform:
   m_ObjectHideFlags: 0

@@ -54,6 +54,9 @@ public class PinSpawner : MonoBehaviour
             {
                 throwablePins[i].MoveOneStep(stageController.TPinDistance);
             }
+
+            // Throwable ÇÉ °³¼ö 1 °¨¼Ò
+            stageController.DecreaseThrowablePin();
         }
     }
     public void SpawnThrowablePin(Vector3 position, int index)
