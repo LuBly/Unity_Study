@@ -25,7 +25,8 @@ public class StageController : MonoBehaviour
     private Color clearBackgroundColor = new Color(0, 0.5f, 0.25f);
 
     // 게임 제어를 위한 변수
-    public bool isGameOver { set; get; } = false;
+    public bool isGameOver  { set; get; } = false;
+    public bool isGameStart { set; get; } = false;
     private void Awake()
     {
         // PinSpawner의 Setup() 메소드 호출 _ List 생성

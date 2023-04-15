@@ -39,7 +39,7 @@ public class PinSpawner : MonoBehaviour
     private void Update()
     {
         // 게임오버(클리어 or 실패)이면 실행X
-        if (stageController.isGameOver == true) return;
+        if (!stageController.isGameStart||stageController.isGameOver) return;
 
         // 게임 진행 도중 플레이어가 마우스 왼쪽 클릭으로 핀 생성
         if(Input.GetMouseButtonDown(0)&&throwablePins.Count>0) 
